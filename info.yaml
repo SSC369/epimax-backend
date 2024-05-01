@@ -1,0 +1,166 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Express API"
+basePath: "/"
+schemes:
+  - "http"
+paths:
+  /api/register:
+    post:
+      summary: "User Registration"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User registration data"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        201:
+          description: "User registered successfully"
+        401:
+          description: "Username already used"
+        500:
+          description: "User registration failed"
+  /api/login:
+    post:
+      summary: "User Login"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User login data"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              username:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        200:
+          description: "User logged in successfully"
+        401:
+          description: "User is not registered or incorrect password"
+        500:
+          description: "User login failed"
+  /api/tasks:
+    post:
+      summary: "Create a Task"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Task details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              description:
+                type: "string"
+              status:
+                type: "string"
+      responses:
+        201:
+          description: "Task created successfully"
+        500:
+          description: "Task creation failed"
+  /api/tasks/{id}:
+    put:
+      summary: "Update a Task"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+          required: true
+        - in: "path"
+          name: "id"
+          type: "string"
+          required: true
+        - in: "body"
+          name: "body"
+          description: "Updated task details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+              description:
+                type: "string"
+              status:
+                type: "string"
+      responses:
+        201:
+          description: "Task Updated successfully"
+        403:
+          description: "Can update only your tasks"
+        500:
+          description: "Task updation failed"
+    get:
+      summary: "Retrieve a Task"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+          required: true
+        - in: "path"
+          name: "id"
+          type: "string"
+          required: true
+      responses:
+        200:
+          description: "Task retrieved successfully"
+        500:
+          description: "Retrieving a task failed"
+    delete:
+      summary: "Delete a Task"
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "header"
+          name: "Authorization"
+          type: "string"
+          required: true
+        - in: "path"
+          name: "id"
+          type: "string"
+          required: true
+      responses:
+        200:
+          description: "Task deleted successfully"
+        500:
+          description: "Task delete operation failed"
