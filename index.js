@@ -180,7 +180,7 @@ app.delete("/api/tasks/:id", fetchUser, async (req, res) => {
   try {
     const { id } = req.params;
 
-    await Task.delete({ id });
+    await Task.deleteOne({ id });
     return res.status(200).json({ msg: "Task deleted successfully" });
   } catch (error) {
     console.log(error);
